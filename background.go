@@ -31,17 +31,17 @@ func NewBackground() *Background {
 	return bg
 }
 
-func (bg *Background) Build() *image.Paletted {
+func (bg *Background) Build() *Background {
 	bg.Image = image.NewPaletted(image.Rect(0, 0, bg.Width, bg.Height), palette.WebSafe)
 	// 绘制背景
 	bg.DrawPanel()
 	bg.DrawNoisy()
-	return bg.Image
+	return bg
 }
 
 func (bg *Background) EncodedPNG() []byte {
 	var buf bytes.Buffer
-	if err := png.Encode(&buf, bg.Build()); err != nil {
+	if err := png.Encode(&buf, bg.Image); err != nil {
 		panic(err.Error())
 	}
 	return buf.Bytes()
@@ -104,10 +104,9 @@ func (bg *Background) DrawCircle(xc, yc, r int, fill bool, c color.Color) {
 	}
 }
 
+// 画线
 func (bg *Background) DrawLine(x1, y1, x2, y2 int, c color.Color) {
-	dx, dy, flag := int(math.Abs(float64(x2-x1))),
-		int(math.Abs(float64(y2-y1))),
-		false
+	dx, dy, flag := int(math.Abs(float64(x2-x1))), int(math.Abs(float64(y2-y1))), false
 	if dy > dx {
 		flag = true
 		x1, y1 = y1, x1
