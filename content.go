@@ -2,6 +2,7 @@ package captcha
 
 import (
 	"math/rand"
+	"time"
 )
 
 const Default_Length = 4
@@ -36,8 +37,10 @@ func (c *Content) Build() string {
 		c.Charset = Default_Charset
 	}
 	charset := ""
+
+	rand.Seed(time.Now().UnixNano() - 66)
 	for i := c.Length; i > 0; i-- {
-		charset += string(c.Charset[i])
+		charset += string(c.Charset[RandRange(len(c.Charset))])
 	}
 	return charset
 }
