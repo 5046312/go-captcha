@@ -15,7 +15,7 @@ func New() *Captcha {
 }
 
 func (c *Captcha) Base64() string {
-	bg := c.Background.encodedPNG()
+	bg := c.Background.EncodedPNG()
 	base64Str := "data:image/png;base64," + base64.StdEncoding.EncodeToString(bg)
 	return base64Str
 }

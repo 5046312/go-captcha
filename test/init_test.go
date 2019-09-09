@@ -7,6 +7,6 @@ import (
 )
 
 func Test_Init(t *testing.T) {
-	base64 := captcha.New()
-	fmt.Println(base64)
+	c := captcha.New()
+	fmt.Println(c.Base64())
 }
